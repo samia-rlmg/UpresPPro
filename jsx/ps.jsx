@@ -9,9 +9,9 @@ if (ExternalObject.AdobeXMPScript === undefined) {
 
 var kPProPrivateProjectMetadataURI = "http://ns.adobe.com/premierePrivateProjectMetaData/1.0/";
 
-var scaleVal = prompt("Enter a scale value to upres sequence:", 2.0);
-
 function upResVideo() {
+
+  var scaleVal = prompt("Enter a scale value to upres sequence:", 2.0);
 
   //Only continue if user enters a scale value.
   if (scaleVal == null || scaleVal == "") {
@@ -69,16 +69,6 @@ function upResVideo() {
             }
           };
 
-          var position = clip.components[1].properties[0];
-          var xyPosition = position.getValue();
-
-          //Fix x and y positions by multiplying their
-          //offset from center by the scale value
-          var xOffset = 0.5 - xyPosition[0];
-          var newX = 0.5 - scaleVal * xOffset;
-          var yOffset = 0.5 - xyPosition[1];
-          var newY = 0.5 - scaleVal * yOffset;
-          position.setValue([newX,newY], 1);
         }
 
       }
