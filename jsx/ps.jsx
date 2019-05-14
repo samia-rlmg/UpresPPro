@@ -58,14 +58,24 @@ function upResVideo() {
           //Go on only if the clip name does not appear in the array of sequences
           if (seqNameArr.indexOf(clip.name) < 0) { //check sequence array for this clip name
           //Scale up each clip by scale value
-          var scale = clip.components[1].properties[1];
-          scale.setValue(scale.getValue()*scaleVal, 1);
+          //alert("Scale: " + clip.components[1].properties[1].getValue() + clip.components[1].properties[2].getValue());
+          var scaleHeight = clip.components[1].properties[1];
+          var scaleWidth = clip.components[1].properties[2];
+          scaleHeight.setValue(scaleHeight.getValue()*scaleVal, 1);
+          scaleWidth.setValue(scaleWidth.getValue()*scaleVal, 1);
 
           //If clip has key frames, scale up each key frame individually
-          if (scale.isTimeVarying()) { //check for key frames
-            var keyTimes = scale.getKeys();
+          if (scaleHeight.isTimeVarying()) { //check for key frames
+            var keyTimes = scaleHeight.getKeys();
             for (var k = 0; k < keyTimes.length; k++){
-              scale.setValueAtKey(keyTimes[k], scaleVal*scale.getValueAtKey(keyTimes[k]), 1);
+              scaleHeight.setValueAtKey(keyTimes[k], scaleVal*scaleHeight.getValueAtKey(keyTimes[k]), 1);
+            }
+          };
+
+          if (scaleWidth.isTimeVarying()) { //check for key frames
+            var keyTimes = scaleWidth.getKeys();
+            for (var k = 0; k < keyTimes.length; k++){
+              scaleWidth.setValueAtKey(keyTimes[k], scaleVal*scaleWidth.getValueAtKey(keyTimes[k]), 1);
             }
           };
 
